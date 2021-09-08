@@ -111,12 +111,12 @@
                     <table>
                         <tr>
                             <td class="title">
-                                <img src="https://www.sparksuite.com/images/logo.png" style="width:100%; max-width:300px;">
+                                <img src="img/webinvaderzlogo.png" style="width:100%; max-width:200px;">
                             </td>
 
                             <td>
                                 Invoice #: {{$show->id}}<br>
-                                Created: {{$show->created_at}}<br>
+                                Created: {{ $show->created_at->format('Y-m-d') }}<br>
 
                             </td>
                         </tr>
@@ -130,11 +130,12 @@
                         <tr>
                             <td>
                                 Web Invaderz.<br>
-                                Gulshan-e-Iqbal<br>
-                                Karachi, PK 12345
+                                H# B-42, near Baitul Mukkaram Masjid, Block 8 Gulshan-e-Iqbal,<br>
+                                Karachi, Karachi City, Sindh 75300
                             </td>
 
                             <td>
+                                <strong>Client Details</strong><br>
                                 {{$client->name}}<br>
                                 {{$client->email}}<br>
                                 {{$client->phno}}
@@ -160,7 +161,7 @@
                 </td>
 
                 <td>
-                    {{$show->paymentmethod}}
+                    {{$show->paymenttype}}
                 </td>
             </tr>
 

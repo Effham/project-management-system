@@ -7,12 +7,17 @@ use App\Service;
 use App\Client;
 use App\Project;
 use PDF;
-
+use Carbon\Carbon;
 class ProjectController extends Controller
 {
+    public function what()
+    {
+        return dd(Project::all());
+    }
     public function index($id)
     {
         $client = Client::findOrFail($id);
+
 
         $services = Service::all();
         return view('projects.createprojects',compact('services','client'));
@@ -23,6 +28,14 @@ class ProjectController extends Controller
         $client = Client::findOrFail($id);
         $client_projects = Project::where('client_id',$id)->get();
         return view('projects.viewprojects',compact('client_projects','client'));
+    }
+    public function showall()
+    {
+
+        $client_projects = Project::paginate(5);
+        $cp=Project::all();
+        $totalProjects = count($cp);
+        return view('projects.allprojects',compact('client_projects','totalProjects'));
     }
 
     public function create(Request $request)
@@ -54,13 +67,21 @@ class ProjectController extends Controller
 
     //
     }
+    public function status($id)
+    {
+        $project = Project::find($id);
+        $project->status = "Paid";
+        $project->remainingcost=0;
+        $project->save();
+        return redirect("/projects");
+    }
+
     public function downloadPDF($id)
     {
         $show = Project::find($id);
         $client = Client::find($show->client_id);
         $services = (explode(',',$show->services));
         $pdf = PDF::loadView('pdf-invoice', compact('show','client','services'));
-
         return $pdf->download('invoice.pdf');
     }
 

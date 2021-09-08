@@ -28,17 +28,17 @@
             <td><a href="/client/{{$client->id}}/projects">{{$client->name}}</a></td>
             <td>{{$client->email}}</td>
             <td>{{$client->phno}}</td>
-            <td><a href="/create/project/{{$client->id}}" class="btn btn-primary">Create Project</a></td>
+            <td><a href="/create/project/{{$client->id}}" class="btn btn-sm btn-secondary">Create Project</a></td>
 
             <td>
-                <a class="btn btn-md btn-warning" href="{{route('clients.edit',$client->id)}}">Edit</a>
+                <a class="btn btn-sm btn-primary" href="{{route('clients.edit',$client->id)}}">Edit</a>
             </td>
             <td>
 
                 <form  method="POST" action="{{route('clients.destroy',$client->id)}}">
                     @csrf
                 <input type="hidden" name="_method" value="DELETE">
-                <input type="submit" class="btn btn-md btn-danger" value="DELETE">
+                <input type="submit" class="btn btn-sm btn-danger" value="DELETE">
                 </form>
                 {{-- <form action="{{route('clients.destroy',$client->id)}}" method="DELETE">
                     @csrf

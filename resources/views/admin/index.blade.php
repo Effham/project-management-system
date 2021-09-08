@@ -1,0 +1,149 @@
+@extends('layouts.admin')
+@section('content')
+<div class="page-header">
+    <div class="container-fluid">
+      <h2 class="h5 no-margin-bottom">Dashboard</h2>
+    </div>
+  </div>
+<section class="no-padding-top no-padding-bottom">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-3 col-sm-6">
+          <div class="statistic-block block">
+            <div class="progress-details d-flex align-items-end justify-content-between">
+              <div class="title">
+                <div class="icon"><i class="icon-user-1"></i></div><strong>Clients</strong>
+              </div>
+              <div class="number dashtext-1">{{count($clients)}}</div>
+            </div>
+            <div class="progress progress-template">
+              <div role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" class="progress-bar progress-bar-template dashbg-1"></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+          <div class="statistic-block block">
+            <div class="progress-details d-flex align-items-end justify-content-between">
+              <div class="title">
+                <div class="icon"><i class="icon-contract"></i></div><strong>Projects</strong>
+              </div>
+              <div class="number dashtext-2">{{count($projects)}}</div>
+            </div>
+            <div class="progress progress-template">
+              <div role="progressbar" style="width: 70%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" class="progress-bar progress-bar-template dashbg-2"></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+          <div class="statistic-block block">
+            <div class="progress-details d-flex align-items-end justify-content-between">
+              <div class="title">
+                <div class="icon"><i class="icon-paper-and-pencil"></i></div><strong>Invoices</strong>
+              </div>
+              <div class="number dashtext-3">{{count($projects)}}</div>
+            </div>
+            <div class="progress progress-template">
+              <div role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100" class="progress-bar progress-bar-template dashbg-3"></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+          <div class="statistic-block block">
+            <div class="progress-details d-flex align-items-end justify-content-between">
+              <div class="title">
+                <div class="icon"><i class="icon-writing-whiteboard"></i></div><strong>Services</strong>
+              </div>
+              <div class="number dashtext-4">{{count($services)}}</div>
+            </div>
+            <div class="progress progress-template">
+              <div role="progressbar" style="width: 35%" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100" class="progress-bar progress-bar-template dashbg-4"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  {{-- Projects Completed, Projects Incompleted --}}
+  <section>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-4">
+            <div class="stats-with-chart-2 block">
+              <div class="title"><strong class="d-block">Projects Completed</strong><span class="d-block">We did it !</span></div>
+              <div class="piechart chart">
+                <canvas id="pieChartHome1"></canvas>
+                <div class="text"><strong class="d-block">{{count($completedProjects)}}</strong><span class="d-block">Projects</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="stats-with-chart-2 block">
+              <div class="title"><strong class="d-block">Projects Incompleted</strong><span class="d-block">We can do it !</span></div>
+              <div class="piechart chart">
+                <canvas id="pieChartHome2"></canvas>
+                <div class="text"><strong class="d-block">{{count($uncompletedProjects)}}</strong><span class="d-block">Projects</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="stats-with-chart-2 block">
+              <div class="title"><strong class="d-block">We are operational in</strong><span class="d-block">Countries</span></div>
+              <div class="piechart chart">
+                <canvas id="pieChartHome3"></canvas>
+                <div class="text"><strong class="d-block">2</strong><span class="d-block"></span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+  <section class="no-padding-bottom">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="stats-2-block block d-flex">
+              <div class="stats-2 d-flex">
+                <div class="stats-2-arrow low"><i class=""></i></div>
+                <div class="stats-2-content"><strong class="h5 d-block">Project Completion Ratio</strong><span class="d-block"></span>
+                </div>
+              </div>
+              <div class="stats-2 d-flex">
+                <div class="stats-2-arrow height"><i class=""></i></div>
+                <div class="stats-2-content"><strong class="d-block">{{round($ratio,2)}}%</strong><span class="d-block"></span>
+                  <div class="progress progress-template progress-small">
+                    <div role="progressbar" style="width: {{$ratio}}%;" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" class="progress-bar progress-bar-template progress-bar-small dashbg-5"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="col-lg-6">
+              <div class="stats-2-block block d-flex">
+                  <div class="stats-2 d-flex">
+                    <div class="stats-2-arrow low"><i class="fa fa-caret-down"></i></div>
+                    <div class="stats-2-content"><strong class="d-block">5.657</strong><span class="d-block">Standard Scans</span>
+                      <div class="progress progress-template progress-small">
+                        <div role="progressbar" style="width: 60%;" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" class="progress-bar progress-bar-template progress-bar-small dashbg-2"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="stats-2 d-flex">
+                    <div class="stats-2-arrow height"><i class="fa fa-caret-up"></i></div>
+                    <div class="stats-2-content"><strong class="d-block">3.1459</strong><span class="d-block">Team Scans</span>
+                      <div class="progress progress-template progress-small">
+                        <div role="progressbar" style="width: 35%;" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" class="progress-bar progress-bar-template progress-bar-small dashbg-3"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+@endsection

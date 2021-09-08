@@ -1,50 +1,64 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 @section('content')
-<div class="container">
-    <hr>
-    <div class="float-right">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createclientmodal">Create New Service</button>
-
+<div class="page-header">
+    <div class="container-fluid mb-2 mt-2">
+      <h1 class="h3 no-margin-bottom">Services<div class="float-right no-margin-bottom"><button  type="button" data-toggle="modal" data-target="#createclientmodal" class="mb-0 btn btn-primary">Add New Service</button></h1>
     </div>
+  </div>
+  @if ($errors->any())
+
+<div class="container block">
+
     <h1>All Services</h1>
-
-<table class="table">
-    <thead>
-      <tr>
-        <th scope="col">Serial No</th>
-        <th scope="col">Service Name</th>
-        <th>Delete Service</th>
-        <th>Edit Service</th>
-      </tr>
-    </thead>
-    <tbody>
-        @foreach ($services as $service)
-        <tr>
-            <th>{{$service->id}}</th>
-            <td>{{$service->name}}</td>
-            <td>
-
-                <form  method="POST" action="{{route('services.destroy',$service->id)}}">
-                    @csrf
-                <input type="hidden" name="_method" value="DELETE">
-                <input type="submit" class="btn btn-md btn-danger" value="DELETE">
-                </form>
-                {{-- <form action="{{route('clients.destroy',$client->id)}}" method="DELETE">
-                    @csrf
-                    <input class="btn btn-danger" type="submit" value="Delete">
-
-                </form> --}}
-            </td>
-            <td>
-                <a class="btn btn-md btn-warning" href="{{route('services.edit',$service->id)}}">Edit</a>
-            </td>
-
-
-
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+  @endif
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Serial No</th>
+            <th>Service Name</th>
+            <th>Delete Service</th>
+            <th>Edit Service</th>
           </tr>
-        @endforeach
-    </tbody>
-  </table>
+        </thead>
+        <tbody>
+            @foreach ($services as $service)
+            <tr>
+                <th>{{$service->id}}</th>
+                <td>{{$service->name}}</td>
+                <td>
+
+                    <form  method="POST" action="{{route('services.destroy',$service->id)}}">
+                        @csrf
+                    <input type="hidden" name="_method" value="DELETE">
+                    <input type="submit" class="btn btn-sm btn-danger" value="DELETE">
+                    </form>
+                    {{-- <form action="{{route('clients.destroy',$client->id)}}" method="DELETE">
+                        @csrf
+                        <input class="btn btn-danger" type="submit" value="Delete">
+
+                    </form> --}}
+                </td>
+                <td>
+                    <a class="btn btn-sm btn-warning" href="{{route('services.edit',$service->id)}}">Edit</a>
+                </td>
+
+
+
+              </tr>
+            @endforeach
+        </tbody>
+      </table>
+
+
+</div>
 </div>
   @endsection
 
@@ -61,7 +75,7 @@
             <form method="POST" action="{{route('services.store')}}">
                 <div class="form-group">
                     {{ csrf_field() }}
-                  <input type="text" class="form-control" id="name" name="name" placeholder="Enter Client Name">
+                  <input type="text" class="form-control" id="name" name="name" placeholder="Enter Service Name">
                 </div>
 
 

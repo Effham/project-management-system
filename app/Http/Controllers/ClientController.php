@@ -28,7 +28,7 @@ class ClientController extends Controller
         $clients = Client::all();
 
 
-        return view('clients.createclient',compact('clients'));
+        return view('clients.clientAll',compact('clients'));
 
 
         //
@@ -71,7 +71,7 @@ class ClientController extends Controller
     public function edit($id)
     {
         $client = Client::findOrFail($id);
-        return view('clients.editclient',compact('client'));
+        return view('clients.editClients',compact('client'));
         //
     }
 

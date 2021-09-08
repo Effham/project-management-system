@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Client;
+use App\Service;
+use App\Project;
 
 class HomeController extends Controller
 {
@@ -23,7 +26,16 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $clients = Client::all();
+        $services = Service::all();
+        $projects = Project::all();
+        //completed projects
+        $completedProjects=Project::where('status','Paid')->get();
+        $uncompletedProjects=Project::where('status','To Be Paid')->get();
+        $div = count($completedProjects)/count($projects);
+        $ratio = $div*100;
+
+        return view('admin.index',compact('clients','services','projects','completedProjects','uncompletedProjects','ratio'));
     }
     function action(Request $request)
     {

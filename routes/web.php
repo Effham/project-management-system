@@ -14,7 +14,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    if(!Auth::user())
+    {
+        return view('auth.login');
+    }
+    else
+    return redirect(route('home'));
+
+});
+Route::get('/admin', function () {
+    return view('admin.index');
+});
+Route::get('/clientall', function () {
+    return view('clients.clientAll');
 });
 
 Auth::routes();
@@ -31,4 +43,7 @@ Route::middleware('auth')->group
 Route::get('/create/project/{id}','ProjectController@index');
 Route::post('/create/project','ProjectController@create');
 Route::get('/client/{id}/projects','ProjectController@show');
+Route::get('/projects','ProjectController@showall');
 Route::get('/downloadPDF/{id}','ProjectController@downloadPDF');
+Route::get('/project/{id}/status','ProjectController@status');
+Route::get('/hello','ProjectController@what');

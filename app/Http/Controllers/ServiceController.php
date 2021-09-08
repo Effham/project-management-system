@@ -38,9 +38,12 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
-        $service = new Service;
-        $service->name = $request->name;
-        $service->save();
+        $validated = $request->validate([
+            'name' => 'required|unique:services|max:20',
+        ]);
+        $validated = new Service;
+        $validated->name = $request->name;
+        $validated->save();
         return redirect(route('services.create'));
         //
     }
